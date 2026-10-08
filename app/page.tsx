@@ -12,36 +12,36 @@ export default function Page() {
           <ThettaLogo className="w-7 h-9 text-neutral-950" />
         </div>
 
-        {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-10 text-[15px]">
-          <a
-            href="#project"
-            className="text-neutral-900 font-semibold hover:text-black transition-colors"
-          >
-            Project
-          </a>
-          <a
-            href="#about"
-            className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
-          >
-            About
-          </a>
-          <a
-            href="#service"
-            className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
-          >
-            Service
-          </a>
-          <a
-            href="#career"
-            className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
-          >
-            Career
-          </a>
-        </nav>
+        {/* Right Aligned Navigation Group */}
+        <div className="flex items-center gap-8 sm:gap-10 md:gap-12">
+          <nav className="hidden md:flex items-center gap-8 text-[15px]">
+            <a
+              href="#project"
+              className="text-neutral-900 font-semibold hover:text-black transition-colors"
+            >
+              Project
+            </a>
+            <a
+              href="#about"
+              className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
+            >
+              About
+            </a>
+            <a
+              href="#service"
+              className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
+            >
+              Service
+            </a>
+            <a
+              href="#career"
+              className="text-neutral-400 font-normal hover:text-neutral-900 transition-colors"
+            >
+              Career
+            </a>
+          </nav>
 
-        {/* Contact CTA */}
-        <div className="flex items-center">
+          {/* Contact CTA */}
           <a
             href="#contact"
             className="bg-[#ff2a00] hover:bg-[#e02600] text-white px-7 py-2.5 rounded-full text-[14px] font-medium transition-all shadow-sm flex items-center gap-2 group cursor-pointer"
