@@ -28,6 +28,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro"
+        />
+      </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
