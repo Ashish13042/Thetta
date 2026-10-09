@@ -1,10 +1,11 @@
 import Image from "next/image"
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { ThettaLogo } from "@/components/thetta-logo"
+import { ServicesSection } from "@/components/services-section"
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-[#0f0f0f] font-sans selection:bg-[#ff2a00] selection:text-white">
+    <div className="min-h-screen bg-cream-grid text-[#0f0f0f] font-sans selection:bg-[#ff2a00] selection:text-white">
       {/* Navigation Header */}
       <header className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 pt-8 pb-6 flex items-center justify-between">
         {/* Brand Logo with Cursive Theta mark */}
@@ -548,6 +549,11 @@ export default function Page() {
           </div>
         </div>
       </section>
+      
+      {/* ========================================================= */}
+      {/* // OUR SERVICES SECTION (Exact match to design screenshot)*/}
+      {/* ========================================================= */}
+      <ServicesSection />
     </div>
   )
 }
