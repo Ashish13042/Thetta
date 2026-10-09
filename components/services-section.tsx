@@ -97,17 +97,17 @@ export function ServicesSection() {
                 onClick={() => setActiveId(item.id)}
                 className="w-full bg-black text-white relative z-20 py-8 sm:py-10 md:py-12 transition-all duration-300 shadow-xl cursor-default"
               >
-                <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 relative">
-                  {/* Left Column: Active Title */}
+                <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-0 relative">
+                  {/* Column 1: Title (matches inactive column) */}
                   <div className="lg:w-[28%] shrink-0">
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">
                       {item.title}
                     </h3>
                   </div>
 
-                  {/* Center Column: Floating Mockup Window Card (Desktop overlapping popout) */}
-                  <div className="hidden lg:block lg:w-[24%] relative shrink-0">
-                    <div className="absolute -top-[130px] left-0 w-[205px] xl:w-[225px] rounded-2xl bg-white p-2.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-neutral-200/90 overflow-hidden flex flex-col z-30 transition-transform duration-500 hover:scale-[1.03]">
+                  {/* Column 2: Floating Card Slot (overlaps vertically) */}
+                  <div className="hidden lg:block lg:w-[22%] relative shrink-0">
+                    <div className="absolute -top-[135px] left-0 w-[205px] xl:w-[225px] rounded-2xl bg-white p-2.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-neutral-200/90 overflow-hidden flex flex-col z-30 transition-transform duration-500 hover:scale-[1.03]">
                       {/* Mockup Header Bar */}
                       <div className="px-2 py-1.5 flex items-center justify-between bg-neutral-900 rounded-t-lg">
                         <span className="text-[8px] font-bold tracking-wider text-white/80 uppercase">
@@ -154,18 +154,22 @@ export function ServicesSection() {
                     </div>
                   </div>
 
-                  {/* Middle Column: Orange Number & Description Text */}
-                  <div className="flex items-start sm:items-center gap-5 sm:gap-8 lg:w-[38%]">
-                    <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#ff2a00] shrink-0 font-mono">
+                  {/* Column 3: Orange Number (perfectly aligned with inactive row numbers) */}
+                  <div className="lg:w-[8%] shrink-0">
+                    <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#ff2a00] font-sans">
                       {item.id}
                     </span>
+                  </div>
+
+                  {/* Column 4: Description Text */}
+                  <div className="lg:w-[34%] pr-4 sm:pr-8">
                     <p className="text-neutral-300 text-xs sm:text-sm md:text-[15px] font-normal leading-relaxed">
                       {item.description}
                     </p>
                   </div>
 
-                  {/* Right Column: Orange Circular Action Button */}
-                  <div className="lg:w-[10%] flex justify-end shrink-0">
+                  {/* Column 5: Orange Circular Action Button */}
+                  <div className="lg:w-[8%] flex justify-end shrink-0">
                     <a
                       href="#contact"
                       aria-label={`Explore ${item.title}`}
@@ -206,22 +210,28 @@ export function ServicesSection() {
               className="w-full border-b border-neutral-200/90 py-6 sm:py-7 md:py-8 cursor-pointer transition-colors duration-200 hover:bg-black/[0.03] group"
             >
               <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 flex items-center justify-between">
-                {/* Title */}
-                <div className="w-[45%] sm:w-[40%] lg:w-[35%]">
+                {/* Column 1: Title */}
+                <div className="w-[60%] sm:w-[45%] lg:w-[28%] shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-neutral-900 uppercase group-hover:text-black transition-colors">
                     {item.title}
                   </h3>
                 </div>
 
-                {/* Number */}
-                <div className="w-[30%] sm:w-[35%] lg:w-[45%] pl-4 sm:pl-8">
-                  <span className="text-sm sm:text-base md:text-lg font-medium text-neutral-400 font-mono group-hover:text-neutral-700 transition-colors">
+                {/* Column 2: Spacer matching the floating card width on desktop */}
+                <div className="hidden lg:block lg:w-[22%] shrink-0" />
+
+                {/* Column 3: Number (aligned in the exact same column as 02) */}
+                <div className="w-[20%] sm:w-[15%] lg:w-[8%] shrink-0">
+                  <span className="text-base sm:text-lg md:text-xl font-medium text-neutral-400 font-sans group-hover:text-neutral-700 transition-colors">
                     {item.id}
                   </span>
                 </div>
 
-                {/* Right Arrow */}
-                <div className="w-[25%] sm:w-[25%] lg:w-[20%] flex justify-end">
+                {/* Column 4: Empty space matching description on active row */}
+                <div className="hidden lg:block lg:w-[34%]" />
+
+                {/* Column 5: Right Arrow */}
+                <div className="w-[20%] sm:w-[15%] lg:w-[8%] flex justify-end shrink-0">
                   <div className="p-2 text-neutral-800 group-hover:text-black transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
