@@ -144,3 +144,86 @@
   background-size: 92px 92px;
   background-position: center top;
 }
+
+@keyframes serviceCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.93);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes serviceContentFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes buttonPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) rotate(-18deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-service-card {
+  animation: serviceCardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-service-content {
+  animation: serviceContentFade 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-button-pop {
+  animation: buttonPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatThettaLogo {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12px) rotate(0.6deg);
+  }
+  50% {
+    transform: translateY(-22px) rotate(-0.4deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(0.4deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+.animate-float-logo {
+  animation: floatThettaLogo 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
