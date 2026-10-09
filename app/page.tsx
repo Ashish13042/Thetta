@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { ThettaLogo } from "@/components/thetta-logo"
 import { ServicesSection } from "@/components/services-section"
 import { TestimonialSection } from "@/components/testimonial-section"
@@ -57,15 +57,6 @@ export default function Page() {
 
       {/* Main Hero Container */}
       <main className="relative max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 pt-10 sm:pt-14 md:pt-18 pb-20">
-        {/* Left Vertical Indicator: Scroll Down */}
-        <div className="hidden lg:flex flex-col items-center gap-3 absolute left-6 xl:left-10 top-[28%] -translate-y-1/2">
-          <span className="text-[12px] font-medium tracking-[0.18em] text-[#ff715b] uppercase [writing-mode:vertical-rl] rotate-180 select-none">
-            Scroll Down
-          </span>
-          <div className="w-[1px] h-9 bg-[#ff715b]" />
-          <ArrowDown className="w-3.5 h-3.5 text-[#ff715b]" />
-        </div>
-
         {/* Hero Title Section */}
         <div className="w-full">
           <h1 className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.75rem] xl:text-[6.5rem] font-bold tracking-[-0.04em] text-[#0f0f0f] leading-[0.98] uppercase">
@@ -87,16 +78,33 @@ export default function Page() {
             <span className="block mt-2 sm:mt-4">YOUR CREATIVE IDEAS</span>
           </h1>
 
-          {/* Subtitle / Description Right-Aligned */}
-          <div className="mt-8 sm:mt-10 md:mt-12 flex justify-start md:justify-end">
-            <p className="max-w-md md:max-w-lg text-[#737373] text-base sm:text-lg leading-relaxed font-normal">
+          {/* Middle Row above showcase card: Scroll Down on left, Description on right */}
+          <div className="mt-8 sm:mt-10 md:mt-12 flex items-end justify-between gap-6">
+            {/* Left Vertical Indicator: Scroll Down with connected arrow */}
+            <div className="flex flex-col items-center gap-2.5 select-none shrink-0 pl-0.5">
+              <span className="text-[12px] sm:text-[13px] font-medium tracking-[0.06em] text-[#ff3b1e] [writing-mode:vertical-rl] pl-0.5">
+                Scroll Down
+              </span>
+              <svg width="12" height="52" viewBox="0 0 12 52" fill="none" className="text-[#ff3b1e]">
+                <path
+                  d="M6 0v46m-4-5L6 46l4-5"
+                  stroke="currentColor"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            {/* Subtitle / Description Right-Aligned */}
+            <p className="max-w-md md:max-w-lg text-[#737373] text-base sm:text-lg leading-relaxed font-normal text-left md:text-left">
               Thetta is a visionary design agency that breathes life into ideas and transforms them into extraordinary realities.
             </p>
           </div>
         </div>
 
         {/* Visual Showcase Card with Glowing Orb & Play Button */}
-        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[2.18/1] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-black mt-12 sm:mt-16 md:mt-20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] group">
+        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[2.18/1] rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-black mt-8 sm:mt-10 md:mt-14 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] group">
           <Image
             src="/hero-orb.jpg"
             alt="Thetta Creative Video Showcase"

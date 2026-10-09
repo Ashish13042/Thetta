@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 
 function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
@@ -50,9 +50,8 @@ const BRAND_REPEATS = Array.from({ length: 16 }, (_, i) => ({
 export function FooterSection() {
   const textPathRef1 = useRef<SVGTextPathElement | null>(null)
   const textPathRef2 = useRef<SVGTextPathElement | null>(null)
-  const [isPaused, setIsPaused] = useState(false)
 
-  // Silky 60fps continuous ribbon scroll along the curved cursive theta logo
+  // Uninterrupted silky 60fps continuous ribbon scroll along the curved cursive theta logo
   useEffect(() => {
     let animId: number
     let offset = 0
@@ -70,18 +69,16 @@ export function FooterSection() {
         if (computed > 0) loopLength = computed
       }
 
-      if (!isPaused) {
-        offset -= speed * delta
-        if (offset <= -loopLength) {
-          offset += loopLength
-        }
+      offset -= speed * delta
+      if (offset <= -loopLength) {
+        offset += loopLength
+      }
 
-        if (textPathRef1.current) {
-          textPathRef1.current.setAttribute("startOffset", `${offset}px`)
-        }
-        if (textPathRef2.current) {
-          textPathRef2.current.setAttribute("startOffset", `${offset + loopLength}px`)
-        }
+      if (textPathRef1.current) {
+        textPathRef1.current.setAttribute("startOffset", `${offset}px`)
+      }
+      if (textPathRef2.current) {
+        textPathRef2.current.setAttribute("startOffset", `${offset + loopLength}px`)
       }
 
       animId = requestAnimationFrame(frame)
@@ -89,7 +86,7 @@ export function FooterSection() {
 
     animId = requestAnimationFrame(frame)
     return () => cancelAnimationFrame(animId)
-  }, [isPaused])
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -130,11 +127,7 @@ export function FooterSection() {
           <div className="flex flex-col md:flex-row items-center md:items-start lg:items-center gap-8 md:gap-12 w-full">
             
             {/* Smaller, Pitch Black Shiny Floating Logo */}
-            <div
-              className="w-[280px] sm:w-[320px] lg:w-[360px] aspect-[1000/1100] relative animate-float-logo transition-transform duration-500 shrink-0"
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
+            <div className="w-[280px] sm:w-[320px] lg:w-[360px] aspect-[1000/1100] relative animate-float-logo transition-transform duration-500 shrink-0">
               <svg
                 viewBox="0 0 1000 1100"
                 className="w-full h-full overflow-visible select-none drop-shadow-[0_20px_30px_rgba(0,0,0,0.9)]"
