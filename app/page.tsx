@@ -2,6 +2,8 @@ import Image from "next/image"
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { ThettaLogo } from "@/components/thetta-logo"
 import { ServicesSection } from "@/components/services-section"
+import { TestimonialSection } from "@/components/testimonial-section"
+import { FooterSection } from "@/components/footer-section"
 
 export default function Page() {
   return (
@@ -463,7 +465,7 @@ export default function Page() {
 
           {/* Main Vision Statement Headline */}
           <h2 className="text-[28px] sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] font-semibold text-white tracking-[-0.03em] leading-[1.08] uppercase max-w-6xl">
-            OASIC IS A VISIONARY DESIGN AGENCY
+            THETTA IS A VISIONARY DESIGN AGENCY
             <br className="hidden md:inline" /> THAT BREATHES LIFE INTO IDEAS AND
             <br className="hidden md:inline" /> TRANSFORMS THEM INTO EXTRAORDINARY
             <br className="hidden md:inline" /> REALITIES.
@@ -489,7 +491,7 @@ export default function Page() {
 
             {/* Supporting Description */}
             <p className="text-neutral-300 text-sm sm:text-base md:text-[17px] font-normal leading-relaxed max-w-md">
-              Oasic is a visionary design agency that breathes life into ideas and transforms them into extraordinary realities.
+              Thetta is a visionary design agency that breathes life into ideas and transforms them into extraordinary realities.
             </p>
           </div>
         </div>
@@ -554,6 +556,16 @@ export default function Page() {
       {/* // OUR SERVICES SECTION (Exact match to design screenshot)*/}
       {/* ========================================================= */}
       <ServicesSection />
+
+      {/* ========================================================= */}
+      {/* // TESTIMONIAL SECTION (Martin Rosser / Pentlar)          */}
+      {/* ========================================================= */}
+      <TestimonialSection />
+
+      {/* ========================================================= */}
+      {/* // FOOTER SECTION (THETTA COLLABORATE & THETTA—2023)       */}
+      {/* ========================================================= */}
+      <FooterSection />
     </div>
   )
 }
