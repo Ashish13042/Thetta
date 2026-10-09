@@ -3,6 +3,40 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 
+function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  )
+}
+
+function TwitterIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  )
+}
+
+function FacebookIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  )
+}
+
+function YoutubeIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  )
+}
+
 // Scaled cursive script Theta (ϑ) path coordinates fitting a 1000x1100 viewBox
 const THETTA_LOGO_PATH =
   "M 342 613 C 306 631, 262 648, 236 604 C 210 560, 236 508, 280 490 C 350 464, 438 534, 456 613 C 474 710, 491 824, 553 877 C 614 921, 694 895, 729 824 C 782 719, 773 578, 729 455 C 676 296, 570 173, 438 182 C 333 191, 262 288, 280 393 C 298 499, 377 578, 482 587 C 579 596, 676 543, 755 472"
@@ -89,8 +123,8 @@ export function FooterSection() {
 
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 relative z-10">
         
-        {/* Upper Layout: Side-by-side Logo and Heading */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 lg:gap-20 pb-16 border-b border-neutral-800/60">
+        {/* Upper Layout: Side-by-side Logo and Heading (upper border removed) */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 lg:gap-20 pb-12">
           
           {/* Logo & Headline Section */}
           <div className="flex flex-col md:flex-row items-center md:items-start lg:items-center gap-8 md:gap-12 w-full">
@@ -172,16 +206,11 @@ export function FooterSection() {
 
           </div>
 
-          {/* Contact Action CTA & Status */}
-          <div className="flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-end gap-5 shrink-0 w-full lg:w-auto mt-6 lg:mt-0">
-            <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700 text-xs font-semibold text-neutral-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-              <span>Available for Global Projects</span>
-            </div>
-
+          {/* Contact Action CTA */}
+          <div className="flex items-center justify-center lg:justify-end shrink-0 w-full lg:w-auto mt-6 lg:mt-0">
             <a
               href="#contact"
-              className="px-6 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,255,255,0.2)] flex items-center gap-2 group cursor-pointer"
+              className="px-7 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,255,255,0.2)] flex items-center gap-2 group cursor-pointer"
             >
               <span>Let&apos;s Talk Now</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -189,9 +218,52 @@ export function FooterSection() {
           </div>
         </div>
 
+        {/* Social Icons positioned just above the line on the right */}
+        <div className="flex justify-end pb-3">
+          <div className="flex items-center gap-4 text-neutral-400">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="text-neutral-400 hover:text-white transition-all duration-200 hover:scale-110"
+            >
+              <InstagramIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Twitter / X"
+              className="text-neutral-400 hover:text-white transition-all duration-200 hover:scale-110"
+            >
+              <TwitterIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+              className="text-neutral-400 hover:text-white transition-all duration-200 hover:scale-110"
+            >
+              <FacebookIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="YouTube"
+              className="text-neutral-400 hover:text-white transition-all duration-200 hover:scale-110"
+            >
+              <YoutubeIcon className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
 
         {/* Lower Direct Links & Accessible Navigation */}
-        <div className="mt-8 pt-8 border-t border-neutral-800/60 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-neutral-500">
+        <div className="pt-8 border-t border-neutral-800/60 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-neutral-500">
+          {/* Left Column: Brand Statement */}
           <div className="flex items-center gap-3">
             <span className="text-sm font-black text-white tracking-widest uppercase drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
               THETTA.
@@ -202,6 +274,7 @@ export function FooterSection() {
             </span>
           </div>
 
+          {/* Center Column: Direct Nav Links */}
           <nav className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 font-semibold tracking-wider uppercase text-neutral-400">
             <a href="#project" className="hover:text-white transition-colors">Projects</a>
             <a href="#about" className="hover:text-white transition-colors">About</a>
@@ -211,7 +284,8 @@ export function FooterSection() {
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
           </nav>
 
-          <div className="flex items-center gap-6">
+          {/* Right Column: Copyright & Back to Top */}
+          <div className="flex items-center gap-5">
             <span className="text-neutral-500">
               &copy; {new Date().getFullYear()} Thetta Inc. All Rights Reserved.
             </span>
