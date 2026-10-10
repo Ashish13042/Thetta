@@ -194,7 +194,7 @@ export function FooterSection() {
           <div className="flex items-center justify-center lg:justify-end shrink-0 w-full lg:w-auto mt-6 lg:mt-0">
             <a
               href="#contact"
-              className="px-7 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,255,255,0.2)] flex items-center gap-2 group cursor-pointer"
+              className="px-7 py-3.5 rounded-full bg-[#ff2a00] hover:bg-[#e02600] text-white text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,42,0,0.35)] flex items-center gap-2 group cursor-pointer"
             >
               <span>Let&apos;s Talk Now</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -245,7 +245,7 @@ export function FooterSection() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="p-2.5 rounded-full bg-gradient-to-br from-neutral-800 to-black hover:from-neutral-700 hover:to-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white transition-all duration-300 cursor-pointer shadow-[0_5px_15px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:scale-105"
+              className="p-2.5 rounded-full bg-gradient-to-br from-neutral-800 to-black hover:from-neutral-700 hover:to-neutral-900 border border-neutral-700 hover:border-[#ff2a00] text-neutral-300 hover:text-white transition-all duration-300 cursor-pointer shadow-[0_5px_15px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:scale-105"
               aria-label="Back to top"
             >
               <ArrowUp className="w-4 h-4" />
