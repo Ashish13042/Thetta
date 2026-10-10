@@ -54,62 +54,51 @@ const FOOTER_NAV = [
 ] as const
 
 // Scaled cursive script Theta (ϑ) path coordinates fitting a 1000x1100 viewBox
-const THETTA_LOGO_PATH =
+const THETTA_SINGLE_PATH =
   "M 342 613 C 306 631, 262 648, 236 604 C 210 560, 236 508, 280 490 C 350 464, 438 534, 456 613 C 474 710, 491 824, 553 877 C 614 921, 694 895, 729 824 C 782 719, 773 578, 729 455 C 676 296, 570 173, 438 182 C 333 191, 262 288, 280 393 C 298 499, 377 578, 482 587 C 579 596, 676 543, 755 472"
 
-const BRAND_REPEATS = Array.from({ length: 16 }, (_, i) => ({
+// Triple-pass path: allows continuous scrolling using STRICTLY POSITIVE offsets on all devices
+// (avoids mobile Safari WebKit clamping negative startOffset to 0)
+const THETTA_LOGO_PATH = `${THETTA_SINGLE_PATH} ${THETTA_SINGLE_PATH} ${THETTA_SINGLE_PATH}`
+
+// 32 items to smoothly populate the triple-pass track
+const BRAND_REPEATS = Array.from({ length: 32 }, (_, i) => ({
   id: `thetta-${i}`,
   text: "THETTA",
 }))
 
 export function FooterSection() {
-  const textPathRef1 = useRef<SVGTextPathElement | null>(null)
-  const textPathRef2 = useRef<SVGTextPathElement | null>(null)
+  const textPathRef = useRef<SVGTextPathElement | null>(null)
 
-  // Continuous 60fps ribbon scroll along the curved cursive theta logo.
-  // Bulletproof cross-platform: starts immediately on mobile and desktop without
-  // blocking on getComputedTextLength, supports WebKit DOM baseVal updates, and includes xlinkHref.
+  // 60fps continuous ribbon scroll along the curved cursive theta logo.
+  // Uses strictly positive offsets (between 2705px and 5411px) on a triple-pass curve.
+  // 100% immune to WebKit / mobile Safari negative offset clamping and exceptions.
   useEffect(() => {
     let animId: number
-    let offset = 0
+    let pos = 2705.5
     let lastTimestamp = performance.now()
-    let loopLength = 4800
     const speed = 0.055
+    const cycleLength = 2705.5
 
     const frame = (now: number) => {
-      const delta = Math.min(now - lastTimestamp, 100)
-      lastTimestamp = now
+      try {
+        const delta = Math.min(now - lastTimestamp, 100)
+        lastTimestamp = now
 
-      // Dynamically tune loopLength once SVG text layout is computed
-      if (textPathRef1.current && loopLength === 4800) {
-        try {
-          const computed = textPathRef1.current.getComputedTextLength?.() || 0
-          if (computed > 1000) {
-            loopLength = computed
-          }
-        } catch {
-          // Keep reliable 4800 fallback
+        pos -= speed * delta
+        if (pos <= 0) pos += cycleLength
+
+        // Strictly positive offset in the middle pass [2705.5, 5411]
+        const currentOffset = 2705.5 + pos
+
+        if (textPathRef.current) {
+          textPathRef.current.setAttribute("startOffset", `${currentOffset.toFixed(2)}px`)
         }
+      } catch {
+        // Prevent any error from breaking the animation loop
+      } finally {
+        animId = requestAnimationFrame(frame)
       }
-
-      offset -= speed * delta
-      if (offset <= -loopLength) offset += loopLength
-
-      if (textPathRef1.current) {
-        textPathRef1.current.setAttribute("startOffset", `${offset}px`)
-        if (textPathRef1.current.startOffset?.baseVal) {
-          textPathRef1.current.startOffset.baseVal.value = offset
-        }
-      }
-
-      if (textPathRef2.current) {
-        textPathRef2.current.setAttribute("startOffset", `${offset + loopLength}px`)
-        if (textPathRef2.current.startOffset?.baseVal) {
-          textPathRef2.current.startOffset.baseVal.value = offset + loopLength
-        }
-      }
-
-      animId = requestAnimationFrame(frame)
     }
 
     animId = requestAnimationFrame(frame)
@@ -117,19 +106,6 @@ export function FooterSection() {
   }, [])
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" })
-
-  const renderCurvedTextItems = (keyPrefix: string) => (
-    <>
-      {BRAND_REPEATS.map((item, idx) => (
-        <tspan key={`${keyPrefix}-${item.id}-${idx}`}>
-          <tspan className="transition-all duration-300 uppercase font-black text-[38px] tracking-[0.2em] fill-neutral-400 hover:fill-white">
-            {item.text}
-          </tspan>
-          <tspan className="fill-neutral-700 font-bold text-[32px] px-3">{"  ✦  "}</tspan>
-        </tspan>
-      ))}
-    </>
-  )
 
   return (
     <footer className="w-full bg-[#030303] text-white pt-20 sm:pt-28 md:pt-36 pb-12 sm:pb-16 relative overflow-hidden selection:bg-white selection:text-black">
@@ -150,13 +126,21 @@ export function FooterSection() {
                   <path id="thetta-curve" d={THETTA_LOGO_PATH} fill="none" />
                 </defs>
                 <text className="font-sans select-none tracking-wider">
-                  <textPath ref={textPathRef1} href="#thetta-curve" xlinkHref="#thetta-curve" startOffset="0px" spacing="exact">
-                    {renderCurvedTextItems("cycle1")}
-                  </textPath>
-                </text>
-                <text className="font-sans select-none tracking-wider">
-                  <textPath ref={textPathRef2} href="#thetta-curve" xlinkHref="#thetta-curve" startOffset="4800px" spacing="exact">
-                    {renderCurvedTextItems("cycle2")}
+                  <textPath
+                    ref={textPathRef}
+                    href="#thetta-curve"
+                    xlinkHref="#thetta-curve"
+                    startOffset="5411px"
+                    spacing="exact"
+                  >
+                    {BRAND_REPEATS.map((item, idx) => (
+                      <tspan key={`thetta-${item.id}-${idx}`}>
+                        <tspan className="transition-all duration-300 uppercase font-black text-[38px] tracking-[0.2em] fill-neutral-400 hover:fill-white">
+                          {item.text}
+                        </tspan>
+                        <tspan className="fill-neutral-700 font-bold text-[32px] px-3">{"  ✦  "}</tspan>
+                      </tspan>
+                    ))}
                   </textPath>
                 </text>
               </svg>
