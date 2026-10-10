@@ -66,30 +66,48 @@ export function FooterSection() {
   const textPathRef1 = useRef<SVGTextPathElement | null>(null)
   const textPathRef2 = useRef<SVGTextPathElement | null>(null)
 
-  // 60fps continuous ribbon scroll along the curved cursive theta logo
+  // Continuous 60fps ribbon scroll along the curved cursive theta logo.
+  // Bulletproof cross-platform: starts immediately on mobile and desktop without
+  // blocking on getComputedTextLength, supports WebKit DOM baseVal updates, and includes xlinkHref.
   useEffect(() => {
     let animId: number
     let offset = 0
     let lastTimestamp = performance.now()
+    let loopLength = 4800
     const speed = 0.055
 
     const frame = (now: number) => {
-      const delta = now - lastTimestamp
+      const delta = Math.min(now - lastTimestamp, 100)
       lastTimestamp = now
 
-      let loopLength = 4800
-      if (textPathRef1.current) {
-        const computed = textPathRef1.current.getComputedTextLength()
-        if (computed > 0) loopLength = computed
+      // Dynamically tune loopLength once SVG text layout is computed
+      if (textPathRef1.current && loopLength === 4800) {
+        try {
+          const computed = textPathRef1.current.getComputedTextLength?.() || 0
+          if (computed > 1000) {
+            loopLength = computed
+          }
+        } catch {
+          // Keep reliable 4800 fallback
+        }
       }
 
       offset -= speed * delta
       if (offset <= -loopLength) offset += loopLength
 
-      if (textPathRef1.current)
+      if (textPathRef1.current) {
         textPathRef1.current.setAttribute("startOffset", `${offset}px`)
-      if (textPathRef2.current)
+        if (textPathRef1.current.startOffset?.baseVal) {
+          textPathRef1.current.startOffset.baseVal.value = offset
+        }
+      }
+
+      if (textPathRef2.current) {
         textPathRef2.current.setAttribute("startOffset", `${offset + loopLength}px`)
+        if (textPathRef2.current.startOffset?.baseVal) {
+          textPathRef2.current.startOffset.baseVal.value = offset + loopLength
+        }
+      }
 
       animId = requestAnimationFrame(frame)
     }
@@ -126,18 +144,18 @@ export function FooterSection() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 lg:gap-20 pb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start lg:items-center gap-8 md:gap-12 w-full">
             {/* Animated theta logo */}
-            <div className="w-[280px] sm:w-[320px] lg:w-[360px] aspect-[1000/1100] relative animate-float-logo transition-transform duration-500 shrink-0">
-              <svg viewBox="0 0 1000 1100" className="w-full h-full overflow-visible select-none drop-shadow-[0_20px_30px_rgba(0,0,0,0.9)]">
+            <div className="w-[280px] sm:w-[320px] lg:w-[360px] aspect-[1000/1100] relative animate-float-logo transition-transform duration-500 shrink-0 drop-shadow-[0_20px_30px_rgba(0,0,0,0.9)]">
+              <svg viewBox="0 0 1000 1100" className="w-full h-full overflow-visible select-none">
                 <defs>
                   <path id="thetta-curve" d={THETTA_LOGO_PATH} fill="none" />
                 </defs>
                 <text className="font-sans select-none tracking-wider">
-                  <textPath ref={textPathRef1} href="#thetta-curve" startOffset="0px" spacing="exact">
+                  <textPath ref={textPathRef1} href="#thetta-curve" xlinkHref="#thetta-curve" startOffset="0px" spacing="exact">
                     {renderCurvedTextItems("cycle1")}
                   </textPath>
                 </text>
                 <text className="font-sans select-none tracking-wider">
-                  <textPath ref={textPathRef2} href="#thetta-curve" startOffset="8500px" spacing="exact">
+                  <textPath ref={textPathRef2} href="#thetta-curve" xlinkHref="#thetta-curve" startOffset="4800px" spacing="exact">
                     {renderCurvedTextItems("cycle2")}
                   </textPath>
                 </text>

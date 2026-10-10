@@ -49,7 +49,7 @@ export function TestimonialSection() {
           <div className="lg:col-span-4 flex flex-col">
             <div className="flex items-center gap-4 sm:gap-5">
               <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden relative shrink-0 shadow-sm">
-                <Image src={current.avatar} alt={current.name} fill className="object-cover object-center" />
+                <Image src={current.avatar} alt={current.name} fill sizes="64px" className="object-cover object-center" />
               </div>
               <div>
                 <h3 className="text-lg sm:text-xl font-bold tracking-tight text-neutral-900 leading-tight">

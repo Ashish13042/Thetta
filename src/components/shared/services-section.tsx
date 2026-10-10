@@ -98,7 +98,7 @@ function ServiceMockupCard({ item }: { item: ServiceItem }) {
 
       {/* Preview image */}
       <div className="relative h-[115px] xl:h-[125px] w-full overflow-hidden bg-neutral-900">
-        <Image src={item.previewImage} alt={item.title} fill className="object-cover object-center transition-transform duration-700 hover:scale-105" />
+        <Image src={item.previewImage} alt={item.title} fill sizes="(max-width: 1024px) 100vw, 225px" className="object-cover object-center transition-transform duration-700 hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/40" />
         <div className="absolute bottom-2 left-2 right-2 text-[10px] font-bold text-white uppercase leading-tight">
           {item.mockupTitle}
@@ -114,7 +114,7 @@ function ServiceMockupCard({ item }: { item: ServiceItem }) {
 
       {/* Sub-thumbnail */}
       <div className="relative h-[48px] w-full rounded-md overflow-hidden bg-neutral-200">
-        <Image src={item.subImage} alt={`${item.title} detail`} fill className="object-cover object-center opacity-90 transition-transform duration-700 hover:scale-105" />
+        <Image src={item.subImage} alt={`${item.title} detail`} fill sizes="(max-width: 1024px) 100vw, 225px" className="object-cover object-center opacity-90 transition-transform duration-700 hover:scale-105" />
       </div>
     </div>
   )

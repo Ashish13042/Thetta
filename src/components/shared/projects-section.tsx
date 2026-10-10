@@ -78,6 +78,7 @@ function KontakoCard({ card }: { card: ProjectCard }) {
               src={card.imageSrc}
               alt={card.imageAlt}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/50" />
@@ -192,6 +193,7 @@ function RoollandCard({ card }: { card: ProjectCard }) {
                 src={card.imageSrc}
                 alt={card.imageAlt}
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
             </div>
