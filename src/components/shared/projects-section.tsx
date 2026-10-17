@@ -1,279 +1,279 @@
-import Image from "next/image"
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
+"use client"
 
-interface ProjectCard {
+import React, { useState, useEffect } from "react"
+import Image from "next/image"
+import { ArrowUpRight, Calendar, Monitor, Sparkles } from "lucide-react"
+
+interface MeeramTheme {
   id: string
-  title: string
-  subtitle: string
-  imageSrc: string
-  imageAlt: string
-  mockupHeader: string
-  mockupCta: string
+  name: string
+  themeTitle: string
   headline: string
-  headlineDot?: boolean
-  description: string
-  authorName: string
-  authorRole: string
-  authorTag: string
-  bottomTag: string
-  ctaStyle: "red" | "white"
-  /** Optional: mockup testimonial or secondary content type */
-  stats?: Array<{ value: string; label: string }>
-  aboutText?: React.ReactNode
+  story: string
+  imageSrc: string
+  accentColor: string
 }
 
-import React from "react"
-
-const PROJECT_CARDS: ProjectCard[] = [
+const MEERAM_THEMES: MeeramTheme[] = [
   {
-    id: "kontako",
-    title: "KONTAKO",
-    subtitle: "REAL ESTATE LANDING PAGE",
-    imageSrc: "/kontako-cabin.jpg",
-    imageAlt: "Kontako - The Future of Home Living",
-    mockupHeader: "KONTAKO",
-    mockupCta: "CONTACT US",
-    headline: "THE FUTURE\nOF HOME LIVING",
-    headlineDot: true,
-    description:
-      "Trust us with your dreams! We are ready to help you build the dream property that will be your future.",
-    authorName: "Kianna Curtis",
-    authorRole: "Founder of Kontako",
-    authorTag: "FULFILL YOUR DREAMS",
-    bottomTag: "WHY DOES IT HAVE TO BE KONTAKO?",
-    ctaStyle: "red",
+    id: "rose-02",
+    name: "Rose 02",
+    themeTitle: "THE LUMINOUS · ROSE 02",
+    headline: "Soft as a secret. Bold as desire.",
+    story:
+      "Velvety rose petals meet glowing amber, creating an intimate signature that unfolds slowly on the skin.",
+    imageSrc: "/meeram-slide-rose.png",
+    accentColor: "#fb7185",
   },
   {
-    id: "roolland",
-    title: "ROOLLAND",
-    subtitle: "LAW FIRM LANDING PAGE",
-    imageSrc: "/roolland-lawyer.jpg",
-    imageAlt: "Roolland Law Firm Team",
-    mockupHeader: "ROOLLAND",
-    mockupCta: "CONTACT US",
-    headline: "PROBLEM\nSOLUTION",
-    description:
-      "WE UNDERSTAND THAT EVERY LEGAL CASE IS UNIQUE, AND THAT IS WHY WE STRIVE TO PROVIDE SOLUTIONS TAILORED TO YOUR SPECIFIC NEEDS AND INTERESTS",
-    authorName: "",
-    authorRole: "",
-    authorTag: "",
-    bottomTag: "",
-    ctaStyle: "white",
-    stats: [
-      { value: "284", label: "Case Resolved" },
-      { value: "84%", label: "Case Win Rate" },
-      { value: "$28 B", label: "Our Case Results" },
-    ],
+    id: "noir-03",
+    name: "Noir 03",
+    themeTitle: "THE NOCTURNAL · NOIR 03",
+    headline: "Made for nights that become stories.",
+    story:
+      "Smoky woods and cool mineral notes deepen into a magnetic, mysterious trail made for after dark.",
+    imageSrc: "/meeram-slide-noir.png",
+    accentColor: "#38bdf8",
+  },
+  {
+    id: "oud-01",
+    name: "Oud 01",
+    themeTitle: "THE SIGNATURE · OUD 01",
+    headline: "Leave a trail they'll never forget.",
+    story:
+      "A scent so captivating, it lingers in the air long after you've gone. An unforgettable essence of you.",
+    imageSrc: "/meeram-slide-oud.png",
+    accentColor: "#f59e0b",
   },
 ]
 
-function KontakoCard({ card }: { card: ProjectCard }) {
+export function ProjectsSection() {
+  const storeUrl = "https://meeramfragrances.com/"
+  const [activeThemeIndex, setActiveThemeIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  // 5-second auto-sliding transition between the 3 authentic landing page themes
+  useEffect(() => {
+    if (isPaused) return
+    const timer = setInterval(() => {
+      setActiveThemeIndex((prev) => (prev + 1) % MEERAM_THEMES.length)
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [isPaused, activeThemeIndex])
+
+  const activeTheme = MEERAM_THEMES[activeThemeIndex]
+
   return (
-    <div className="flex flex-col group">
-      <div className="rounded-[2rem] sm:rounded-[2.5rem] bg-[#edf1f4] p-5 sm:p-7 md:p-8 shadow-sm transition-all duration-300 hover:shadow-md">
-        <div className="rounded-2xl sm:rounded-[1.25rem] bg-white overflow-hidden shadow-lg border border-neutral-100/80 flex flex-col">
-          {/* Mockup hero image */}
-          <div className="relative h-[280px] sm:h-[330px] md:h-[370px] w-full overflow-hidden bg-neutral-900">
-            <Image
-              src={card.imageSrc}
-              alt={card.imageAlt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/50" />
-
-            {/* Mockup header bar */}
-            <div className="relative z-10 px-6 py-4 flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-widest text-white/90 uppercase">MENU</span>
-              <span className="text-xs font-extrabold tracking-widest text-white uppercase">{card.mockupHeader}</span>
-              <span className="bg-[#ff2a00] text-white px-3 py-1 rounded-full text-[9px] font-bold tracking-wider uppercase shadow-sm">
-                {card.mockupCta}
-              </span>
-            </div>
-
-            {/* Mockup headline */}
-            <div className="absolute bottom-6 left-6 right-6 z-10">
-              <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-none uppercase max-w-[280px] sm:max-w-xs">
-                THE FUTURE <br />
-                OF HOME LIVING<span className="text-[#ff2a00]">.</span>
-              </h4>
-              <p className="text-[10px] sm:text-[11px] text-neutral-300 max-w-xs mt-2.5 font-normal leading-relaxed">
-                {card.description}
-              </p>
-            </div>
-
-            {/* Floating action arrow */}
-            <div className="absolute bottom-6 right-6 z-10">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#ff2a00] text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
-                <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-            </div>
-          </div>
-
-          {/* Testimonial area */}
-          <div className="p-6 sm:p-8 bg-white flex flex-col items-center text-center">
-            <span className="text-[9px] sm:text-[10px] font-bold text-[#ff2a00] tracking-widest uppercase mb-3">
-              {card.authorTag}
-            </span>
-            <blockquote className="text-xs sm:text-sm md:text-[15px] font-semibold text-neutral-800 max-w-md leading-relaxed tracking-tight mb-5">
-              &ldquo; Kontako is committed to providing the best service in meeting your property needs for your future &rdquo;
-            </blockquote>
-
-            <div className="flex items-center gap-2.5 mb-6">
-              <div className="w-7 h-7 rounded-full bg-neutral-200 overflow-hidden relative border border-neutral-300">
-                <div className="w-full h-full bg-gradient-to-tr from-amber-600 to-rose-400" />
-              </div>
-              <div className="text-left">
-                <div className="text-[11px] font-bold text-neutral-900 leading-tight">{card.authorName}</div>
-                <div className="text-[9px] text-neutral-400 font-medium">{card.authorRole}</div>
-              </div>
-            </div>
-
-            <span className="text-[8px] sm:text-[9px] font-bold text-[#ff2a00] tracking-wider uppercase opacity-90">
-              {card.bottomTag}
-            </span>
-          </div>
+    <section id="project" className="mt-16 sm:mt-24 md:mt-32 pt-8 mb-24 sm:mb-32 md:mb-40 lg:mb-44 pb-6 sm:pb-8">
+      {/* Section Header Tag */}
+      <div className="flex items-center justify-between mb-6 sm:mb-8">
+        <div className="flex items-center gap-2 text-sm sm:text-base font-bold tracking-wider text-[#ff2a00] uppercase font-sans">
+          <span>//</span>
+          <span>FEATURED PROJECT</span>
         </div>
-      </div>
-
-      {/* Card footer */}
-      <div className="mt-5 sm:mt-6 px-3 flex items-center justify-between">
-        <div>
-          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 uppercase">{card.title}</h3>
-          <p className="text-[11px] sm:text-xs font-semibold text-neutral-400 tracking-wider uppercase mt-1">{card.subtitle}</p>
-        </div>
-        <button
-          type="button"
-          aria-label={`View ${card.title} Project`}
-          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#ff2a00] text-white flex items-center justify-center shadow-md transition-all duration-300 hover:scale-105 group-hover:scale-105 active:scale-95 cursor-pointer"
+        <a
+          href={storeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs sm:text-sm font-semibold text-neutral-500 hover:text-neutral-900 transition-colors flex items-center gap-1 group cursor-pointer"
         >
-          <ArrowUpRight className="w-6 h-6" />
-        </button>
+          <span>meeramfragrances.com</span>
+          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
       </div>
-    </div>
-  )
-}
 
-function RoollandCard({ card }: { card: ProjectCard }) {
-  return (
-    <div className="flex flex-col group">
-      <div className="rounded-[2rem] sm:rounded-[2.5rem] bg-[#edf1f4] p-5 sm:p-7 md:p-8 shadow-sm transition-all duration-300 hover:shadow-md">
-        <div className="rounded-2xl sm:rounded-[1.25rem] bg-white overflow-hidden shadow-lg border border-neutral-100/80 p-5 sm:p-7 md:p-8 flex flex-col justify-between min-h-[500px]">
-          {/* Header */}
-          <div>
-            <div className="flex items-center justify-between text-xs pb-5 border-b border-neutral-100">
-              <span className="font-extrabold tracking-tight text-neutral-900 text-sm uppercase">{card.mockupHeader}</span>
-              <div className="flex flex-col gap-1 cursor-pointer">
-                <div className="w-4 h-0.5 bg-neutral-900" />
-                <div className="w-4 h-0.5 bg-neutral-900" />
+      {/* Main Luxury Dark Showcase Container */}
+      <div
+        className="rounded-[2.25rem] sm:rounded-[3rem] bg-[#0b0c0e] text-white p-6 sm:p-10 md:p-12 lg:p-14 shadow-2xl border border-white/10 relative overflow-hidden transition-all duration-500"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Subtle Ambient Glow */}
+        <div
+          className="absolute -top-32 -right-32 w-96 h-96 rounded-full blur-[120px] pointer-events-none transition-colors duration-700 opacity-20"
+          style={{ backgroundColor: activeTheme.accentColor }}
+        />
+
+        {/* Desktop 2-Column Section / Mobile Stacked: Description on Left, Large Preview on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Project Title & Description (5 cols on lg) */}
+          <div className="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+            <div className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] text-neutral-400 uppercase mb-3">
+              E-COMMERCE &nbsp;/&nbsp; UI/UX DESIGN
+            </div>
+
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[3.25rem] font-bold text-white tracking-tight leading-[1.06] mb-5">
+              Meeram Perfumes
+            </h3>
+
+            <p className="text-neutral-300 text-sm sm:text-[15px] leading-relaxed font-normal mb-8 max-w-lg">
+              A luxurious and immersive e-commerce experience crafted for Meeram, a premium perfume
+              brand. The website combines elegant visuals, smooth interactions and a refined layout
+              to reflect the brand&apos;s sophistication and timeless appeal.
+            </p>
+
+            {/* Metadata Specs Row: Year, Platform, Services with small greyish vertical separator lines */}
+            <div className="flex items-center justify-between pt-6 border-t border-white/10 mb-8">
+              {/* Year */}
+              <div className="flex items-start gap-2 sm:gap-2.5 flex-1 min-w-0">
+                <Calendar className="w-4 h-4 text-neutral-400 mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[10px] sm:text-[11px] text-neutral-400 font-medium">Year</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">2026</div>
+                </div>
               </div>
-              <span className="border border-neutral-300 rounded-full px-3 py-1 text-[9px] font-bold text-neutral-700 tracking-wider uppercase">
-                {card.mockupCta}
-              </span>
+
+              {/* Small vertical greyish separator line */}
+              <div className="w-[1px] h-7 sm:h-8 bg-white/10 shrink-0 mx-2 sm:mx-3" />
+
+              {/* Platform */}
+              <div className="flex items-start gap-2 sm:gap-2.5 flex-1 min-w-0 pl-1">
+                <Monitor className="w-4 h-4 text-neutral-400 mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[10px] sm:text-[11px] text-neutral-400 font-medium">Platform</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">Web</div>
+                </div>
+              </div>
+
+              {/* Small vertical greyish separator line */}
+              <div className="w-[1px] h-7 sm:h-8 bg-white/10 shrink-0 mx-2 sm:mx-3" />
+
+              {/* Services */}
+              <div className="flex items-start gap-2 sm:gap-2.5 flex-[1.2] min-w-0 pl-1">
+                <Sparkles className="w-4 h-4 text-neutral-400 mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[10px] sm:text-[11px] text-neutral-400 font-medium">Services</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white mt-0.5 leading-snug">
+                    UI/UX Design &amp; Dev
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="text-center my-6 sm:my-8">
-              <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 tracking-widest uppercase block mb-1">
-                WE BUILD BRIDGES BETWEEN
-              </span>
-              <h4 className="text-3xl sm:text-4xl md:text-[2.6rem] font-extrabold text-neutral-900 tracking-tight leading-[0.95] uppercase">
-                PROBLEM <br />
-                SOLUTION
-              </h4>
+            {/* Single Clear "View Live Project ↗" Button */}
+            <div>
+              <a
+                href={storeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Live Project - Meeram Fragrances Website"
+                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer group"
+              >
+                <span>View Live Project</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between text-[8px] sm:text-[9px] font-bold text-neutral-400 tracking-wider uppercase mb-4 px-1">
-              <span>A TEAM DEDICATED TO</span>
-              <span>SOLVE YOUR PROBLEM</span>
-            </div>
-
-            <div className="relative h-[200px] sm:h-[240px] md:h-[270px] w-full rounded-xl overflow-hidden bg-neutral-900 shadow-inner">
+          {/* Right Column: Featured Project Screenshot in Large, Rounded Preview Container (7 cols on lg) */}
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="relative rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border border-white/10 shadow-2xl aspect-[16/10] bg-neutral-900 group">
+              {/* Featured Image with Smooth Fade Transition */}
               <Image
-                src={card.imageSrc}
-                alt={card.imageAlt}
+                key={activeTheme.id}
+                src={activeTheme.imageSrc}
+                alt={`${activeTheme.themeTitle} - ${activeTheme.headline}`}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                priority
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+
+              {/* Direct Clickable Overlay */}
+              <a
+                href={storeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open Live Store - ${activeTheme.themeTitle}`}
+                className="absolute inset-0 z-10 cursor-pointer"
               />
             </div>
           </div>
+        </div>
 
-          {/* Lower content */}
-          <div className="mt-6 pt-5 border-t border-neutral-100">
-            <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-6">
-              <span className="text-[9px] font-bold text-neutral-400 tracking-wider uppercase shrink-0 sm:pt-0.5">
-                ABOUT US
-              </span>
-              <p className="text-[10px] sm:text-[11px] font-bold text-neutral-800 leading-snug uppercase">
-                WE UNDERSTAND{" "}
-                <span className="text-neutral-400 font-semibold">
-                  THAT EVERY LEGAL CASE IS UNIQUE, AND THAT IS WHY WE STRIVE TO PROVIDE SOLUTIONS TAILORED TO YOUR SPECIFIC NEEDS
-                </span>{" "}
-                AND INTERESTS
-              </p>
+        {/* Lower Row: Display the Three Alternate Designs in a Responsive Grid Below */}
+        <div className="mt-10 sm:mt-12 md:mt-14 pt-8 sm:pt-10 border-t border-white/10">
+          <div className="flex items-center justify-between mb-5 sm:mb-6">
+            <div className="text-[11px] sm:text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+              ALTERNATE LANDING PAGE THEMES (3)
             </div>
+            <div className="text-[10px] sm:text-[11px] text-neutral-400 hidden sm:block">
+              Click any design to preview · Auto-transitions every 5s
+            </div>
+          </div>
 
-            {card.stats && (
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-neutral-100">
-                {card.stats.map(({ value, label }) => (
-                  <div key={label}>
-                    <div className="text-xl sm:text-2xl font-extrabold text-neutral-900 tracking-tight">{value}</div>
-                    <div className="text-[9px] text-neutral-400 font-medium tracking-tight mt-0.5">{label}</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            {MEERAM_THEMES.map((theme, index) => {
+              const isSelected = activeThemeIndex === index
+
+              return (
+                <div
+                  key={theme.id}
+                  onClick={() => setActiveThemeIndex(index)}
+                  className={`relative rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 border transition-all duration-300 cursor-pointer group ${
+                    isSelected
+                      ? "shadow-2xl scale-[1.02] border-opacity-100"
+                      : "border-white/10 hover:border-white/30 opacity-70 hover:opacity-100"
+                  }`}
+                  style={{
+                    borderColor: isSelected ? theme.accentColor : undefined,
+                  }}
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <Image
+                      src={theme.imageSrc}
+                      alt={theme.themeTitle}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                    {/* Active preview indicator pill */}
+                    {isSelected && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <span
+                          className="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-black shadow-md"
+                          style={{ backgroundColor: theme.accentColor }}
+                        >
+                          Featured
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Bottom caption & link */}
+                    <div className="absolute bottom-3 left-3.5 right-3.5 z-10 flex items-end justify-between gap-2">
+                      <div className="min-w-0">
+                        <p
+                          className="text-[9px] font-bold uppercase tracking-wider truncate"
+                          style={{ color: theme.accentColor }}
+                        >
+                          {theme.themeTitle}
+                        </p>
+                        <h5 className="text-xs sm:text-[13px] font-bold text-white truncate mt-0.5">
+                          {theme.headline}
+                        </h5>
+                      </div>
+
+                      <a
+                        href={storeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label={`Visit live store for ${theme.name}`}
+                        className="w-7 h-7 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+                      >
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              )
+            })}
           </div>
         </div>
-      </div>
 
-      {/* Card footer */}
-      <div className="mt-5 sm:mt-6 px-3 flex items-center justify-between">
-        <div>
-          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 uppercase">{card.title}</h3>
-          <p className="text-[11px] sm:text-xs font-semibold text-neutral-400 tracking-wider uppercase mt-1">{card.subtitle}</p>
-        </div>
-        <button
-          type="button"
-          aria-label={`View ${card.title} Project`}
-          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-white border border-neutral-200 text-neutral-900 flex items-center justify-center shadow-sm transition-all duration-300 hover:scale-105 group-hover:scale-105 group-hover:border-neutral-300 active:scale-95 cursor-pointer"
-        >
-          <ArrowUpRight className="w-6 h-6" />
-        </button>
-      </div>
-    </div>
-  )
-}
-
-export function ProjectsSection() {
-  return (
-    <section id="project" className="mt-16 sm:mt-24 md:mt-32 pt-8">
-      {/* Section header */}
-      <div className="flex items-center justify-between mb-8 sm:mb-12">
-        <div className="flex items-center gap-2 text-sm sm:text-base font-bold tracking-wider text-[#ff2a00] uppercase font-sans">
-          <span>//</span>
-          <span>OUR PROJECT</span>
-        </div>
-        <div className="flex items-center gap-4 text-neutral-800">
-          <button type="button" aria-label="Previous Project" className="p-2 text-neutral-400 hover:text-black transition-colors cursor-pointer">
-            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-          <button type="button" aria-label="Next Project" className="p-2 text-neutral-900 hover:text-[#ff2a00] transition-colors cursor-pointer">
-            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        </div>
-      </div>
-
-      {/* Projects grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
-        {PROJECT_CARDS.map((card) =>
-          card.id === "kontako" ? (
-            <KontakoCard key={card.id} card={card} />
-          ) : (
-            <RoollandCard key={card.id} card={card} />
-          )
-        )}
       </div>
     </section>
   )

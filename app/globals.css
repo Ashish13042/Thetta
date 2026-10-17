@@ -227,3 +227,12 @@
 .animate-pulse-glow {
   animation: pulseGlow 6s ease-in-out infinite;
 }
+
+@keyframes meeramProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

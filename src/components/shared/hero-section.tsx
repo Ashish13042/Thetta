@@ -10,17 +10,23 @@ export function HeroSection() {
           <span className="inline-flex items-center flex-wrap gap-x-5 gap-y-3">
             <span>WE COMPLETE</span>
 
-            {/* "LET'S TALK NOW" badge pill */}
-            <span className="inline-flex items-center gap-3 align-middle group cursor-pointer my-1">
+            {/* "LET'S TALK NOW" badge pill - redirects to Meeram website */}
+            <a
+              href="https://meeramfragrances.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Let's Talk - Visit Meeram Store"
+              className="inline-flex items-center gap-3 align-middle group cursor-pointer my-1 transition-transform duration-300 hover:scale-[1.02]"
+            >
               <span className="p-0.5 rounded-full border border-[#ff2a00] transition-transform duration-300 group-hover:scale-105">
                 <span className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#ff2a00] flex items-center justify-center text-white shadow-sm">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
               </span>
-              <span className="text-xs sm:text-sm font-bold tracking-wider text-[#ff2a00] uppercase select-none">
+              <span className="text-xs sm:text-sm font-bold tracking-wider text-[#ff2a00] uppercase select-none group-hover:underline">
                 LET&apos;S TALK NOW
               </span>
-            </span>
+            </a>
           </span>
           <span className="block mt-2 sm:mt-4">YOUR CREATIVE IDEAS</span>
         </h1>
