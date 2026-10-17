@@ -1,10 +1,10 @@
-import { ArrowUpRight } from "lucide-react"
 import { ThettaLogo } from "@/src/components/shared/thetta-logo"
 
 const NAV_LINKS = [
-  { href: "#projects", label: "Projects", active: true },
-  { href: "#services", label: "Services", active: false },
-  { href: "#about", label: "About", active: false },
+  { href: "#projects", label: "Projects" },
+  { href: "#services", label: "Services" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
 ] as const
 
 export function SiteHeader() {
@@ -15,33 +15,18 @@ export function SiteHeader() {
         <ThettaLogo className="w-7 h-9 text-neutral-950" showText={true} />
       </a>
 
-      {/* Right-aligned nav + CTA */}
-      <div className="flex items-center gap-8 sm:gap-10 md:gap-12">
-        <nav className="hidden md:flex items-center gap-8 text-[15px]">
-          {NAV_LINKS.map(({ href, label, active }) => (
-            <a
-              key={href}
-              href={href}
-              className={
-                active
-                  ? "text-neutral-900 font-semibold hover:text-black transition-colors"
-                  : "text-neutral-500 font-normal hover:text-neutral-900 transition-colors"
-              }
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Contact CTA */}
-        <a
-          href="#contact"
-          className="bg-[#ff2a00] hover:bg-[#e02600] text-white px-6 py-2.5 rounded-full text-[14px] font-medium transition-all shadow-sm flex items-center gap-2 group cursor-pointer"
-        >
-          <span>Let&apos;s Talk</span>
-          <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
-      </div>
+      {/* Right-shifted nav links occupying the right space */}
+      <nav className="hidden md:flex items-center gap-9 lg:gap-12 text-[15px] group/nav">
+        {NAV_LINKS.map(({ href, label }) => (
+          <a
+            key={href}
+            href={href}
+            className="text-[#1c1c1c] font-medium transition-colors hover:text-[#ff2a00] group-hover/nav:text-neutral-400 group-hover/nav:hover:text-[#1c1c1c]"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </header>
   )
 }

@@ -9,7 +9,7 @@ import { FooterSection } from "@/src/components/shared/footer-section"
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-cream-grid text-[#0f0f0f] font-sans selection:bg-[#ff2a00] selection:text-white">
+    <div className="min-h-screen bg-cream-grid text-[#0f0f0f] font-sans selection:bg-[#ff2a00] selection:text-white border-t-[3px] border-[#1b3d2f]">
       <SiteHeader />
 
       <HeroSection />
