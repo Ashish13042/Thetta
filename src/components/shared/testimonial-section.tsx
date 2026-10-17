@@ -15,25 +15,17 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "01",
-    name: "Martin Rosser",
-    role: "CEO, Pentlar",
-    avatar: "/martin-rosser.jpg",
+    name: "Sahil",
+    role: "Client, Drip Studios",
+    avatar: "/sahil.jpg",
     quote:
-      "\u201cWe are very happy to work with such an amazing team! our working experience is great. They have a deep understanding of our brand vision and values, and are able to present them in creative and impressive designs.\u201d",
-  },
-  {
-    id: "02",
-    name: "Elena Rostova",
-    role: "Founder, Nihoma Studio",
-    avatar: "/martin-rosser.jpg",
-    quote:
-      "\u201cThe collaboration with Thetta completely elevated our visual identity. Their creative instincts, precision, and speed delivered beyond our highest expectations.\u201d",
+      "\u201cWorking with the team was an absolute pleasure. They delivered awesome designs with remarkable attention to detail, super quick responses to every request, and proper execution from start to finish. Truly top-notch work!\u201d",
   },
 ]
 
 export function TestimonialSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const current = TESTIMONIALS[currentIndex]
+  const current = TESTIMONIALS[currentIndex] || TESTIMONIALS[0]
 
   const handlePrev = () =>
     setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1))
@@ -59,24 +51,26 @@ export function TestimonialSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-5 mt-8 sm:mt-10">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous testimonial"
-                className="p-1 text-[#ffb7a8] hover:text-[#ff2a00] transition-colors cursor-pointer group"
-              >
-                <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next testimonial"
-                className="p-1 text-[#ff2a00] hover:text-[#e02600] transition-colors cursor-pointer group"
-              >
-                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5" />
-              </button>
-            </div>
+            {TESTIMONIALS.length > 1 && (
+              <div className="flex items-center gap-5 mt-8 sm:mt-10">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Previous testimonial"
+                  className="p-1 text-[#ffb7a8] hover:text-[#ff2a00] transition-colors cursor-pointer group"
+                >
+                  <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Next testimonial"
+                  className="p-1 text-[#ff2a00] hover:text-[#e02600] transition-colors cursor-pointer group"
+                >
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Right: quote */}
