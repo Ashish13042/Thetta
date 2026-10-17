@@ -50,13 +50,28 @@ const MEERAM_THEMES: MeeramTheme[] = [
 export function ProjectsSection() {
   const storeUrl = "https://meeramfragrances.com/"
   const [activeThemeIndex, setActiveThemeIndex] = useState(0)
+  const [prevThemeIndex, setPrevThemeIndex] = useState<number | null>(null)
+  const [direction, setDirection] = useState<"next" | "prev">("next")
   const [isPaused, setIsPaused] = useState(false)
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+
+  const goToSlide = (newIndex: number, forcedDir?: "next" | "prev") => {
+    if (newIndex === activeThemeIndex) return
+    const dir =
+      forcedDir ||
+      (newIndex > activeThemeIndex || (activeThemeIndex === MEERAM_THEMES.length - 1 && newIndex === 0)
+        ? "next"
+        : "prev")
+    setDirection(dir)
+    setPrevThemeIndex(activeThemeIndex)
+    setActiveThemeIndex(newIndex)
+  }
 
   // 5-second auto-sliding transition between the 3 authentic landing page themes
   useEffect(() => {
     if (isPaused) return
     const timer = setInterval(() => {
-      setActiveThemeIndex((prev) => (prev + 1) % MEERAM_THEMES.length)
+      goToSlide((activeThemeIndex + 1) % MEERAM_THEMES.length, "next")
     }, 5000)
 
     return () => clearInterval(timer)
@@ -166,19 +181,72 @@ export function ProjectsSection() {
             </div>
           </div>
 
-          {/* Right Column: Featured Project Screenshot in Large, Rounded Preview Container (7 cols on lg) */}
+          {/* Right Column: Featured Project Screenshot with Hardware-Accelerated Sliding Track */}
           <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="relative rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border border-white/10 shadow-2xl aspect-[16/10] bg-neutral-900 group">
-              {/* Featured Image with Smooth Fade Transition */}
-              <Image
-                key={activeTheme.id}
-                src={activeTheme.imageSrc}
-                alt={`${activeTheme.themeTitle} - ${activeTheme.headline}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                priority
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-              />
+            <div
+              className="relative rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border border-white/10 shadow-2xl aspect-[16/10] bg-neutral-900 group select-none"
+              onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+              onTouchEnd={(e) => {
+                if (touchStartX === null) return
+                const diff = touchStartX - e.changedTouches[0].clientX
+                if (diff > 40) {
+                  goToSlide((activeThemeIndex + 1) % MEERAM_THEMES.length, "next")
+                } else if (diff < -40) {
+                  goToSlide((activeThemeIndex - 1 + MEERAM_THEMES.length) % MEERAM_THEMES.length, "prev")
+                }
+                setTouchStartX(null)
+              }}
+            >
+              {/* All 3 Slides Mounted for Instant GPU Compositing (Zero Flashes / 60fps on Mobile) */}
+              {MEERAM_THEMES.map((theme, index) => {
+                const isActive = index === activeThemeIndex
+                const isPrev = index === prevThemeIndex
+
+                let transform = "translate3d(100%, 0, 0)"
+                let opacity = 0
+                let zIndex = 0
+                let transition = "none"
+
+                if (isActive) {
+                  transform = "translate3d(0%, 0, 0)"
+                  opacity = 1
+                  zIndex = 20
+                  transition = "transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms ease"
+                } else if (isPrev) {
+                  transform = direction === "next" ? "translate3d(-100%, 0, 0)" : "translate3d(100%, 0, 0)"
+                  opacity = 0
+                  zIndex = 10
+                  transition = "transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms ease"
+                } else {
+                  transform = direction === "next" ? "translate3d(100%, 0, 0)" : "translate3d(-100%, 0, 0)"
+                  opacity = 0
+                  zIndex = 0
+                  transition = "none"
+                }
+
+                return (
+                  <div
+                    key={theme.id}
+                    style={{
+                      transform,
+                      opacity,
+                      zIndex,
+                      transition,
+                    }}
+                    className="absolute inset-0 w-full h-full will-change-[transform,opacity]"
+                  >
+                    <Image
+                      src={theme.imageSrc}
+                      alt={`${theme.themeTitle} - ${theme.headline}`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 55vw"
+                      priority={index === 0}
+                      loading="eager"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                )
+              })}
 
               {/* Direct Clickable Overlay */}
               <a
@@ -186,8 +254,23 @@ export function ProjectsSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open Live Store - ${activeTheme.themeTitle}`}
-                className="absolute inset-0 z-10 cursor-pointer"
+                className="absolute inset-0 z-30 cursor-pointer"
               />
+
+              {/* Slide Dots / Progress Indicator */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 pointer-events-none">
+                {MEERAM_THEMES.map((theme, idx) => (
+                  <span
+                    key={theme.id}
+                    style={{
+                      backgroundColor: idx === activeThemeIndex ? theme.accentColor : "rgba(255,255,255,0.25)",
+                    }}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      idx === activeThemeIndex ? "w-6" : "w-1.5"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -210,7 +293,7 @@ export function ProjectsSection() {
               return (
                 <div
                   key={theme.id}
-                  onClick={() => setActiveThemeIndex(index)}
+                  onClick={() => goToSlide(index)}
                   className={`relative rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 border transition-all duration-300 cursor-pointer group ${
                     isSelected
                       ? "shadow-2xl scale-[1.02] border-opacity-100"

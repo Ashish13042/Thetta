@@ -102,7 +102,7 @@ export function HallOfFameSection() {
   }
 
   return (
-    <section className="relative w-full mt-12 sm:mt-16 md:mt-20">
+    <section id="projects" className="relative w-full mt-12 sm:mt-16 md:mt-20 scroll-mt-24">
       {/* Outer Dark Showcase Container */}
       <div className="relative w-full rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] bg-[#101010] border border-white/10 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.55)] p-5 sm:p-8 md:p-10 lg:p-12 overflow-hidden text-white">
         {/* Subtle Background Structural Grid */}
