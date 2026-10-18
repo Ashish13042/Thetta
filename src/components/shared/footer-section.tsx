@@ -24,7 +24,7 @@ function TwitterIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
 
 const SOCIAL_LINKS = [
   { href: "https://instagram.com/thetta.tech", label: "Instagram", Icon: InstagramIcon },
-  { href: "https://x.com/Ashish_rawat10", label: "Twitter / X", Icon: TwitterIcon },
+  { href: "https://x.com/Thetta13", label: "Twitter / X", Icon: TwitterIcon },
 ] as const
 
 const FOOTER_NAV = [

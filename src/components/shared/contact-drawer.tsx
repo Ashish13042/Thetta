@@ -288,7 +288,7 @@ export function ContactDrawer() {
 
                 {/* Twitter / X */}
                 <a
-                  href="https://x.com/Ashish_rawat10"
+                  href="https://x.com/Thetta13"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors group"
