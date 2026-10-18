@@ -13,7 +13,7 @@ export default function Page() {
 
       <HeroSection />
 
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-16 mb-20 sm:mb-28 md:mb-36">
         <ClientLogos />
       </div>
 

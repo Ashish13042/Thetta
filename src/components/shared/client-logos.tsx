@@ -2,7 +2,7 @@ import React from "react"
 
 export function ClientLogos() {
   return (
-    <div className="mt-14 sm:mt-18 md:mt-24 pt-6 pb-6 border-y border-neutral-300/80 bg-neutral-900/[0.015]">
+    <div className="mt-14 sm:mt-18 md:mt-24 pt-4 pb-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center">
         {/* LEFT SIDE: CLIENT BRANDS */}
         <div className="lg:pr-8">
