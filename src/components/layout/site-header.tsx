@@ -2,7 +2,6 @@ import { ThettaLogo } from "@/src/components/shared/thetta-logo"
 
 const NAV_LINKS = [
   { href: "#projects", label: "Projects" },
-  { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
 ] as const

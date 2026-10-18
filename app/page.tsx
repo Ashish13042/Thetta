@@ -2,7 +2,6 @@ import { SiteHeader } from "@/src/components/layout/site-header"
 import { HeroSection } from "@/src/components/shared/hero-section"
 import { ClientLogos } from "@/src/components/shared/client-logos"
 import { AgencySection } from "@/src/components/shared/agency-section"
-import { ServicesSection } from "@/src/components/shared/services-section"
 import { TestimonialSection } from "@/src/components/shared/testimonial-section"
 import { FooterSection } from "@/src/components/shared/footer-section"
 
@@ -18,7 +17,6 @@ export default function Page() {
       </div>
 
       <AgencySection />
-      <ServicesSection />
       <TestimonialSection />
       <FooterSection />
     </div>

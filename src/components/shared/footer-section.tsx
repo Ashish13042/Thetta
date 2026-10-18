@@ -45,9 +45,9 @@ const SOCIAL_LINKS = [
 ] as const
 
 const FOOTER_NAV = [
-  { href: "#project", label: "Projects" },
+  { href: "#projects", label: "Projects" },
   { href: "#about", label: "About" },
-  { href: "#service", label: "Services" },
+  { href: "#contact", label: "Contact" },
   { href: "#privacy", label: "Privacy" },
   { href: "#terms", label: "Terms" },
   { href: "#faq", label: "FAQ" },
