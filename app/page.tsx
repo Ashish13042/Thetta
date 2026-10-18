@@ -4,6 +4,7 @@ import { ClientLogos } from "@/src/components/shared/client-logos"
 import { AgencySection } from "@/src/components/shared/agency-section"
 import { TestimonialSection } from "@/src/components/shared/testimonial-section"
 import { FooterSection } from "@/src/components/shared/footer-section"
+import { ContactDrawer } from "@/src/components/shared/contact-drawer"
 
 export default function Page() {
   return (
@@ -19,6 +20,8 @@ export default function Page() {
       <AgencySection />
       <TestimonialSection />
       <FooterSection />
+
+      <ContactDrawer />
     </div>
   )
 }

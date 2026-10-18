@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { openContactDrawer } from "@/src/components/shared/contact-drawer"
 
 interface ProjectShowcase {
   id: string
@@ -272,6 +273,10 @@ export function AgencySection() {
 
           <a
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault()
+              openContactDrawer()
+            }}
             className="flex items-center gap-4 group cursor-pointer w-fit shrink-0"
             aria-label="Start a conversation with Thetta"
           >

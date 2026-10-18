@@ -1,5 +1,8 @@
+"use client"
+
 import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { HallOfFameSection } from "@/src/components/shared/hall-of-fame-section"
+import { openContactDrawer } from "@/src/components/shared/contact-drawer"
 
 export function HeroSection() {
   return (
@@ -19,6 +22,10 @@ export function HeroSection() {
             {/* Circular orange button with arrow right that rotates diagonal upwards on hover + "LET'S TALK" */}
             <a
               href="#contact"
+              onClick={(e) => {
+                e.preventDefault()
+                openContactDrawer()
+              }}
               aria-label="Let's Talk - Contact Thetta"
               className="inline-flex items-center gap-3 align-middle group cursor-pointer my-1 transition-transform duration-300 hover:scale-[1.02]"
             >

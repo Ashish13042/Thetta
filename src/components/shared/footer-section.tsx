@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { ArrowUp, ArrowUpRight } from "lucide-react"
+import { ArrowUp, ArrowUpRight, Mail } from "lucide-react"
+import { openContactDrawer } from "@/src/components/shared/contact-drawer"
 
 function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   return (
@@ -21,27 +22,9 @@ function TwitterIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   )
 }
 
-function FacebookIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-    </svg>
-  )
-}
-
-function YoutubeIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
-  )
-}
-
 const SOCIAL_LINKS = [
-  { href: "https://instagram.com", label: "Instagram", Icon: InstagramIcon },
-  { href: "https://twitter.com", label: "Twitter / X", Icon: TwitterIcon },
-  { href: "https://facebook.com", label: "Facebook", Icon: FacebookIcon },
-  { href: "https://youtube.com", label: "YouTube", Icon: YoutubeIcon },
+  { href: "https://instagram.com/thetta.tech", label: "Instagram", Icon: InstagramIcon },
+  { href: "https://x.com/Ashish_rawat10", label: "Twitter / X", Icon: TwitterIcon },
 ] as const
 
 const FOOTER_NAV = [
@@ -120,7 +103,7 @@ export function FooterSection() {
   )
 
   return (
-    <footer className="w-full bg-[#030303] text-white pt-20 sm:pt-28 md:pt-36 pb-12 sm:pb-16 relative overflow-hidden selection:bg-white selection:text-black">
+    <footer id="contact" className="w-full bg-[#030303] text-white pt-20 sm:pt-28 md:pt-36 pb-12 sm:pb-16 relative overflow-hidden selection:bg-white selection:text-black scroll-mt-10">
       {/* Dot-grid background texture */}
       <div
         className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:36px_36px] pointer-events-none opacity-40"
@@ -180,9 +163,9 @@ export function FooterSection() {
 
             {/* Headline text */}
             <div className="flex flex-col max-w-2xl text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-2 text-xs sm:text-sm font-bold tracking-widest text-neutral-400 uppercase mb-4 md:mb-6">
-                <span className="text-white">//</span>
-                <span>CONNECT &amp; COLLABORATE</span>
+              <div className="flex items-center justify-center md:justify-start gap-2 text-xs sm:text-sm font-bold tracking-widest text-[#FF3214] uppercase mb-4 md:mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF3214] animate-pulse" />
+                <span>// CONNECT &amp; COLLABORATE</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase leading-[1.05]">
                 COLLABORATE WITH THETTA AND START YOUR DESIGN JOURNEY
@@ -194,7 +177,11 @@ export function FooterSection() {
           <div className="flex items-center justify-center lg:justify-end shrink-0 w-full lg:w-auto mt-6 lg:mt-0">
             <a
               href="#contact"
-              className="px-7 py-3.5 rounded-full bg-[#ff2a00] hover:bg-[#e02600] text-white text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,42,0,0.35)] flex items-center gap-2 group cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault()
+                openContactDrawer()
+              }}
+              className="px-8 py-4 rounded-full bg-[#ff2a00] hover:bg-[#e02600] text-white text-xs sm:text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(255,42,0,0.35)] flex items-center gap-2 group cursor-pointer"
             >
               <span>Let&apos;s Talk Now</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -202,9 +189,20 @@ export function FooterSection() {
           </div>
         </div>
 
-        {/* Social icons */}
-        <div className="flex justify-end pb-3">
-          <div className="flex items-center gap-4 text-neutral-400">
+        {/* Contact details: email & socials positioned on the right bottom side directly above the separator line */}
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-3 sm:gap-4 pb-6 pt-2">
+          {/* Direct Email */}
+          <a
+            href="mailto:ashish@thetta.tech"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-neutral-200 hover:text-[#FF3214] transition-all duration-300 group shadow-sm text-xs"
+          >
+            <Mail className="w-3.5 h-3.5 text-[#FF3214]" />
+            <span className="font-mono text-xs tracking-wide">ashish@thetta.tech</span>
+            <ArrowUpRight className="w-3 h-3 text-neutral-400 group-hover:text-[#FF3214] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+
+          {/* Social Accounts */}
+          <div className="flex items-center gap-2">
             {SOCIAL_LINKS.map(({ href, label, Icon }) => (
               <a
                 key={href}
@@ -212,9 +210,10 @@ export function FooterSection() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="text-neutral-400 hover:text-white transition-all duration-200 hover:scale-110"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-400 hover:text-white text-xs font-mono transition-colors group"
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-3.5 h-3.5 group-hover:text-[#FF3214] transition-colors" />
+                <span>{label}</span>
               </a>
             ))}
           </div>

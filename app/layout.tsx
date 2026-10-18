@@ -26,7 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn("antialiased scroll-smooth", fontMono.variable, "font-sans", geist.variable)}
     >
       <head>
         <link
